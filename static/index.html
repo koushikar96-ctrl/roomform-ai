@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ef">
+  <title>Roomform — AI interior redesign</title>
+  <link rel="stylesheet" href="/static/style.css?v=8">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Roomform home"><span class="brand-mark">r</span>roomform</a>
+    <span class="top-note"><span class="status-dot"></span> Private, local AI</span>
+  </header>
+
+  <main class="layout">
+    <section class="intro">
+      <p class="eyebrow">A fresh perspective on your space</p>
+      <h1>Make room for<br><span>something new.</span></h1>
+      <p class="intro-copy">Bring a room photo and a little inspiration. Get an AI-powered redesign, right on your computer.</p>
+      <div class="model-note">
+        <span class="sparkle" aria-hidden="true">✳</span>
+        <span><strong>Private local editor</strong><br>Runs on your device · No external API key</span>
+      </div>
+      <p class="flow-note">Choose a photo, room type, style, and edit strength. The design is generated in one step.</p>
+    </section>
+
+    <section class="workbench" aria-label="Redesign a room">
+      <form id="redesign-form">
+        <label class="section-label" for="image-input">01 <span>Your room</span></label>
+        <label class="upload-box" id="upload-box" for="image-input">
+          <input id="image-input" name="image" type="file" accept="image/*" required>
+          <span id="upload-prompt" class="upload-prompt">
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong>Drop a photo here</strong>
+            <span>or <u>browse files</u> · JPG, PNG, WEBP · up to 12 MB</span>
+          </span>
+          <img id="preview-image" class="preview-image" alt="Selected room preview" hidden>
+        </label>
+
+        <label class="section-label options-label" for="room-type">02 <span>Room type</span></label>
+        <select id="room-type" name="room_type">
+          <option value="auto">Auto-detect from photo</option>
+          <option value="living room">Living room</option>
+          <option value="bedroom">Bedroom</option>
+          <option value="kitchen">Kitchen</option>
+          <option value="dining room">Dining room</option>
+          <option value="bathroom">Bathroom</option>
+          <option value="home office">Home office</option>
+        </select>
+
+        <label class="section-label options-label" for="style">03 <span>Choose a style</span></label>
+        <select id="style" name="style">
+          <option>Modern</option>
+          <option>Scandinavian</option>
+          <option>Japandi</option>
+          <option>Minimalist</option>
+          <option>Bohemian</option>
+          <option>Mid-century</option>
+        </select>
+
+        <fieldset class="wall-color-fieldset">
+          <legend class="section-label">04 <span>Choose a wall color</span></legend>
+          <p class="field-hint">Pastel shades designed to work with your room style.</p>
+          <div class="wall-color-grid">
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="warm-white" checked>
+              <span class="color-swatch" style="--swatch-color: #f5f0e6"></span>
+              <span>Warm white</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="soft-sage">
+              <span class="color-swatch" style="--swatch-color: #dce8d5"></span>
+              <span>Soft sage</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="powder-blue">
+              <span class="color-swatch" style="--swatch-color: #dceaf4"></span>
+              <span>Powder blue</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="blush-pink">
+              <span class="color-swatch" style="--swatch-color: #f2dde0"></span>
+              <span>Blush pink</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="lavender">
+              <span class="color-swatch" style="--swatch-color: #e8e0f2"></span>
+              <span>Lavender</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="buttercream">
+              <span class="color-swatch" style="--swatch-color: #f5edc9"></span>
+              <span>Buttercream</span>
+            </label>
+            <label class="wall-color-option">
+              <input type="radio" name="wall_color" value="pale-peach">
+              <span class="color-swatch" style="--swatch-color: #f3dfd2"></span>
+              <span>Pale peach</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="section-label options-label" for="room-mood">05 <span>Room mood</span></label>
+        <select id="room-mood" name="room_mood">
+          <option value="calm" selected>Calm &amp; airy</option>
+          <option value="cozy">Warm &amp; cozy</option>
+          <option value="elegant">Quietly elegant</option>
+          <option value="lively">Bright &amp; lively</option>
+          <option value="natural">Organic &amp; nature-inspired</option>
+        </select>
+
+        <label class="section-label options-label" for="flooring">06 <span>Floor finish</span></label>
+        <select id="flooring" name="flooring">
+          <option value="keep" selected>Keep existing floor</option>
+          <option value="light-oak">Light oak</option>
+          <option value="warm-oak">Warm natural oak</option>
+          <option value="stone">Natural stone tile</option>
+          <option value="concrete">Matte polished concrete</option>
+        </select>
+
+        <label class="section-label options-label" for="lighting">07 <span>Lighting</span></label>
+        <select id="lighting" name="lighting">
+          <option value="preserve" selected>Keep original daylight</option>
+          <option value="warm-layered">Soft, warm layers</option>
+          <option value="bright-daylight">Bright natural daylight</option>
+          <option value="evening">Warm evening light</option>
+        </select>
+
+        <label class="section-label options-label" for="edit-strength">08 <span>How much should change?</span></label>
+        <select id="edit-strength" name="edit_strength">
+          <option value="subtle">Subtle — keep more of the original</option>
+          <option value="balanced" selected>Balanced — refresh the room</option>
+          <option value="bold">Bold — make bigger visual changes</option>
+        </select>
+
+        <fieldset class="furniture-fieldset">
+          <legend class="section-label">09 <span>Furniture to change <small>(optional)</small></span></legend>
+          <p class="field-hint">Selected pieces are updated if visible or added if missing. Room structure, windows, and doors stay fixed.</p>
+          <div class="furniture-grid">
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="sofa"><span>Sofa &amp; armchairs</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="bed"><span>Bed &amp; bedside</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="dining"><span>Dining set</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="tables"><span>Coffee &amp; side tables</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="storage"><span>Storage &amp; shelves</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="desk"><span>Desk &amp; office chair</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="lighting"><span>Lamps &amp; lighting</span></label>
+            <label class="furniture-option"><input type="checkbox" name="furniture_changes" value="textiles"><span>Rugs, floor mats &amp; curtains</span></label>
+          </div>
+        </fieldset>
+
+        <label class="section-label options-label" for="instructions">10 <span>Other design preferences <small>(optional)</small></span></label>
+        <textarea id="instructions" name="instructions" maxlength="500" rows="3" placeholder="Warm lighting, more plants, keep the floor, add a reading nook…"></textarea>
+
+        <button id="submit-button" class="submit-button" type="submit">
+          <span>Upload &amp; redesign</span><span aria-hidden="true">↗</span>
+        </button>
+        <p class="runtime-note">Your selected colors and design preferences guide the redesign. Visual results may vary.</p>
+        <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
+      </form>
+
+      <section id="result-panel" class="result-panel" aria-live="polite" hidden>
+        <div class="result-heading">
+          <div><p class="eyebrow">Your new space</p><h2>Made for you.</h2></div>
+          <button id="start-over" class="text-button" type="button">Start over</button>
+        </div>
+        <div class="result-image-wrap"><img id="result-image" alt="AI redesigned room"></div>
+        <a id="download-link" class="download-button" href="" download>Download redesign <span>↓</span></a>
+        <p class="result-credit">Generated locally on your device.</p>
+      </section>
+    </section>
+  </main>
+  <footer>ROOMFORM <span>·</span> A little imagination goes a long way.</footer>
+  <script src="/static/app.js?v=8" defer></script>
+</body>
+</html>

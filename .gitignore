@@ -1,0 +1,11 @@
+.venv/
+.venv*/
+.tmp/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+static/generated/*
+!static/generated/.gitkeep
+ex/
